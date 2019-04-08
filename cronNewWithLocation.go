@@ -11,16 +11,27 @@ func init() {
 	xlocationLosangeles, _ := time.LoadLocation("America/Los_Angeles")
 	fmt.Println(xlocationLosangeles)
 	fmt.Println(time.Now().In( xlocationLosangeles ))
+	fmt.Println(time.Now())
+
 
 	c := cron.NewWithLocation( xlocationLosangeles )
 
-	err := c.AddFunc("*/1 */1 6 * * *", func() { fmt.Println("Every second ,every minite", time.Now().In(xlocationLosangeles)) })
+
+	err := c.AddFunc("*/1 */1 7 * * *", func() { fmt.Println("Los_Angels:Every second ,every minite", time.Now().In(xlocationLosangeles)) })
+
+	if err != nil {
+		panic(err)
+	}
+	cTimenow := cron.New()
+	err = cTimenow.AddFunc("*/1 */1 22 * * *", func() { fmt.Println("time_Now(): Every second ,every minite", time.Now()) })
+
 
 	if err != nil {
 		panic(err)
 	}
 
 	c.Start()
+	cTimenow.Start()
 
 }
 
